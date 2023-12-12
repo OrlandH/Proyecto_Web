@@ -7,6 +7,8 @@ const { engine }  = require('express-handlebars')
 // Inicializaciones
 const app = express()
 
+const methodOverride = require('method-override');
+
 // Configuraciones 
 app.set('port',process.env.port || 3000)
 app.set('views',path.join(__dirname, 'views'))
@@ -28,12 +30,15 @@ app.set('view engine','.hbs')
 
 
 // Middlewares 
+
 app.use(express.urlencoded({extended:false}))
+app.use(methodOverride('_method'))
 
 
 // Variables globales
 
 // Rutas 
+app.use(require('./routers/portafolio.routes'))
 app.use(require('./routers/index.routes.js'))
 
 // Archivos estáticos
